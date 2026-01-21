@@ -18,7 +18,7 @@ body {
     background-color: var(--white);
     color: var(--text-grey);
     line-height: 1.6;
-    overflow-x: hidden; /* Evita scroll horizontal */
+    overflow-x: hidden;
 }
 
 img { max-width: 100%; height: auto; }
@@ -29,9 +29,8 @@ img { max-width: 100%; height: auto; }
 .main-header {
     background-color: var(--white);
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    position: sticky; 
-    top: 0; 
-    z-index: 1000; /* Nivel base */
+    position: sticky; top: 0; 
+    z-index: 1000; /* Header normal */
     padding: 0.5rem 0;
 }
 
@@ -61,25 +60,13 @@ img { max-width: 100%; height: auto; }
 .dropdown-content a { color: var(--text-grey); padding: 12px 20px; display: block; font-size: 14px; }
 .dropdown-content a:hover { background-color: #f0f8ff; color: var(--primary-blue); }
 
-/* --- ESTILOS DE BOTONES (CORREGIDOS) --- */
+/* BOTÓN DE CONTACTO (CORREGIDO PARA QUE NO SE CORTE) */
 .btn-contact {
-    display: inline-block; /* CRUCIAL PARA QUE NO SE ROMPA */
-    background-color: var(--primary-blue); 
-    color: var(--white) !important;
-    padding: 12px 30px; 
-    border-radius: 50px; 
-    font-weight: bold; 
-    transition: all 0.3s ease; 
-    text-decoration: none;
-    text-align: center;
-    border: none; cursor: pointer;
+    display: inline-block; /* Corrección clave */
+    background-color: var(--primary-blue); color: var(--white) !important;
+    padding: 10px 25px; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; text-decoration: none;
 }
 .btn-contact:hover { background-color: var(--accent-aqua); transform: translateY(-2px); }
-
-/* Clase extra para el botón grande de "Nosotros" en móvil */
-.btn-large {
-    width: auto; /* Deja que el padding defina el ancho en desktop */
-}
 
 .mobile-only-btn { display: none; }
 .desktop-only-btn { display: inline-block; }
@@ -90,12 +77,11 @@ img { max-width: 100%; height: auto; }
     cursor: pointer; align-self: flex-end; margin-bottom: 20px;
 }
 
-/* --- OVERLAY OSCURO (NIVEL 9000) --- */
-/* Debe ser menor que el menú móvil (9999) */
+/* OVERLAY OSCURO (CORREGIDO) */
 .menu-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6); 
-    z-index: 9000; 
+    background: rgba(0,0,0,0.6); /* Un poco más oscuro */
+    z-index: 2000; /* Encima del header (1000) pero debajo del menú móvil (3000) */
     display: none; opacity: 0; transition: opacity 0.3s ease;
 }
 .menu-overlay.active { display: block; opacity: 1; }
@@ -192,7 +178,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .gallery-track { display: flex; gap: 12px; width: max-content; }
 
 .gallery-track img { 
-    width: 130px; 
+    width: 130px;  /* ANCHO FIJO PARA SINCRONIZAR VELOCIDAD */
     height: 180px; 
     border-radius: 10px; 
     object-fit: cover; 
@@ -221,7 +207,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
 
 /* =========================================
-   7. MEDIA QUERIES (MÓVIL)
+   7. MEDIA QUERIES (MÓVIL) - CORRECCIÓN MENÚ
    ========================================= */
 @media screen and (max-width: 768px) {
     .header-content { display: flex; justify-content: space-between; align-items: center; }
@@ -230,8 +216,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .desktop-only-btn { display: none; }
     .mobile-only-btn { display: inline-block; margin-top: 20px; width: 100%; text-align: center; }
 
-    /* --- MENÚ LATERAL: NIVEL 9999 (MAXIMO) --- */
-    /* Esto garantiza que esté siempre encima del overlay gris */
+    /* MENÚ LATERAL: Z-INDEX 3000 PARA GANARLE AL OVERLAY */
     .nav-links {
         position: fixed; 
         top: 0; left: 0; 
@@ -244,7 +229,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
         padding: 20px 25px; 
         transform: translateX(-100%); 
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 9999; /* NADIE LE GANA A ESTO */
+        z-index: 3000; /* ¡MUY ALTO! ESTO LO ARREGLA */
         box-shadow: 4px 0 15px rgba(0,0,0,0.1);
     }
     .nav-links.active { transform: translateX(0%); }
@@ -261,18 +246,11 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .hero-buttons { display: flex; flex-direction: column; width: 100%; }
     .btn-primary, .btn-secondary { width: 100%; margin: 5px 0; }
     .iframe-full-width { height: 1800px; }
+    
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links a { justify-content: center; }
     .social-icons { justify-content: center; }
-    .gallery-track img { width: 100px; height: 140px; }
     
-    /* AJUSTE FINAL PARA EL BOTÓN ROTO EN MÓVIL */
-    .btn-large {
-        font-size: 1.1rem; 
-        padding: 15px 20px; /* Padding ajustado para pantallas angostas */
-        width: 90%; /* Que no toque los bordes */
-        max-width: 350px;
-        display: block; /* Asegura que ocupe su línea */
-        margin: 0 auto; /* Centrado */
-    }
+    /* Galería más chica en móvil */
+    .gallery-track img { width: 100px; height: 140px; }
 }
