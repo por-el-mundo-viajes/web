@@ -18,7 +18,7 @@ body {
     background-color: var(--white);
     color: var(--text-grey);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 img { max-width: 100%; height: auto; }
@@ -29,8 +29,9 @@ img { max-width: 100%; height: auto; }
 .main-header {
     background-color: var(--white);
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    position: sticky; top: 0; 
-    z-index: 1000; /* Nivel base del header */
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; /* Nivel base */
     padding: 0.5rem 0;
 }
 
@@ -60,21 +61,24 @@ img { max-width: 100%; height: auto; }
 .dropdown-content a { color: var(--text-grey); padding: 12px 20px; display: block; font-size: 14px; }
 .dropdown-content a:hover { background-color: #f0f8ff; color: var(--primary-blue); }
 
-/* --- BOTONES DE CONTACTO --- */
+/* --- ESTILOS DE BOTONES (CORREGIDOS) --- */
 .btn-contact {
-    display: inline-block; /* Mantiene el botón sólido */
-    background-color: var(--primary-blue); color: var(--white) !important;
-    padding: 10px 25px; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; text-decoration: none;
+    display: inline-block; /* CRUCIAL PARA QUE NO SE ROMPA */
+    background-color: var(--primary-blue); 
+    color: var(--white) !important;
+    padding: 12px 30px; 
+    border-radius: 50px; 
+    font-weight: bold; 
+    transition: all 0.3s ease; 
+    text-decoration: none;
     text-align: center;
+    border: none; cursor: pointer;
 }
 .btn-contact:hover { background-color: var(--accent-aqua); transform: translateY(-2px); }
 
-/* Estilo específico para botón grande en móvil */
+/* Clase extra para el botón grande de "Nosotros" en móvil */
 .btn-large {
-    font-size: 1.1rem;
-    padding: 15px 30px;
-    width: 100%;
-    max-width: 300px;
+    width: auto; /* Deja que el padding defina el ancho en desktop */
 }
 
 .mobile-only-btn { display: none; }
@@ -86,11 +90,12 @@ img { max-width: 100%; height: auto; }
     cursor: pointer; align-self: flex-end; margin-bottom: 20px;
 }
 
-/* --- OVERLAY OSCURO (Nivel 9000) --- */
+/* --- OVERLAY OSCURO (NIVEL 9000) --- */
+/* Debe ser menor que el menú móvil (9999) */
 .menu-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.6); 
-    z-index: 9000; /* MUY ALTO, pero menos que el menú */
+    z-index: 9000; 
     display: none; opacity: 0; transition: opacity 0.3s ease;
 }
 .menu-overlay.active { display: block; opacity: 1; }
@@ -247,6 +252,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     
     .close-menu-btn { display: block; align-self: flex-end; font-size: 1.5rem; padding: 10px; cursor: pointer; }
 
+    /* Corrección Dropdown en móvil */
     .dropdown-content { position: static; box-shadow: none; border-top: none; background-color: #f9f9f9; padding-left: 15px; display: none; width: 100%; }
     .dropdown.active .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -259,4 +265,14 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .footer-links a { justify-content: center; }
     .social-icons { justify-content: center; }
     .gallery-track img { width: 100px; height: 140px; }
+    
+    /* AJUSTE FINAL PARA EL BOTÓN ROTO EN MÓVIL */
+    .btn-large {
+        font-size: 1.1rem; 
+        padding: 15px 20px; /* Padding ajustado para pantallas angostas */
+        width: 90%; /* Que no toque los bordes */
+        max-width: 350px;
+        display: block; /* Asegura que ocupe su línea */
+        margin: 0 auto; /* Centrado */
+    }
 }
