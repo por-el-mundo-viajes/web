@@ -24,14 +24,14 @@ body {
 img { max-width: 100%; height: auto; }
 
 /* =========================================
-   2. HEADER & NAVEGACIÓN (JERARQUÍA CORREGIDA)
+   2. HEADER & NAVEGACIÓN (CORRECCIÓN Z-INDEX)
    ========================================= */
 .main-header {
     background-color: var(--white);
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
     position: sticky; 
     top: 0; 
-    /* IMPORTANTE: El Header debe estar ENCIMA del overlay (1500) */
+    /* ¡CORRECCIÓN! El header debe ser mayor que el overlay (1500) */
     z-index: 2000; 
     padding: 0.5rem 0;
 }
@@ -54,7 +54,7 @@ img { max-width: 100%; height: auto; }
     display: none; position: absolute; background-color: var(--white);
     min-width: 200px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     border-radius: 8px; top: 100%; left: 0; padding: 10px 0;
-    border-top: 3px solid var(--accent-aqua); z-index: 2001; /* Encima del header */
+    border-top: 3px solid var(--accent-aqua); z-index: 2001;
 }
 @media screen and (min-width: 769px) {
     .dropdown:hover .dropdown-content { display: block; }
@@ -62,19 +62,21 @@ img { max-width: 100%; height: auto; }
 .dropdown-content a { color: var(--text-grey); padding: 12px 20px; display: block; font-size: 14px; }
 .dropdown-content a:hover { background-color: #f0f8ff; color: var(--primary-blue); }
 
-/* --- BOTONES (CORRECCIÓN VISUAL) --- */
+/* --- BOTONES --- */
 .btn-contact {
-    display: inline-block; /* Hace que el botón sea una caja sólida */
+    display: inline-block;
     background-color: var(--primary-blue); color: var(--white) !important;
     padding: 10px 25px; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; text-decoration: none;
     text-align: center;
 }
 .btn-contact:hover { background-color: var(--accent-aqua); transform: translateY(-2px); }
 
-/* Estilo para botón grande (Nosotros) */
+/* Botón grande para móvil */
 .btn-large {
     font-size: 1.1rem;
     padding: 15px 30px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .mobile-only-btn { display: none; }
@@ -86,11 +88,11 @@ img { max-width: 100%; height: auto; }
     cursor: pointer; align-self: flex-end; margin-bottom: 20px;
 }
 
-/* --- OVERLAY OSCURO (NIVEL 1500) --- */
-/* Debe ser MENOR que el Header (2000) para quedar abajo del menú */
+/* --- OVERLAY OSCURO (CORRECCIÓN Z-INDEX) --- */
 .menu-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.6); 
+    /* Debe ser MENOR que el header (2000) para quedar abajo */
     z-index: 1500; 
     display: none; opacity: 0; transition: opacity 0.3s ease;
 }
@@ -174,7 +176,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .disclaimer { text-align: center; font-size: 0.7rem; color: #ccc; padding: 10px; background-color: var(--white); }
 
 /* =========================================
-   5. GALERÍA LADRILLO (VERTICAL PEQUEÑA)
+   5. GALERÍA LADRILLO
    ========================================= */
 .travelers-gallery-section { 
     background-color: #f8f9fa; 
@@ -239,7 +241,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
         padding: 20px 25px; 
         transform: translateX(-100%); 
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 3000; /* Encima del header (2000) y del overlay (1500) */
+        z-index: 3000; /* Siempre visible encima del header */
         box-shadow: 4px 0 15px rgba(0,0,0,0.1);
     }
     .nav-links.active { transform: translateX(0%); }
@@ -255,21 +257,17 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .hero-buttons { display: flex; flex-direction: column; width: 100%; }
     .btn-primary, .btn-secondary { width: 100%; margin: 5px 0; }
     .iframe-full-width { height: 1800px; }
-    
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links a { justify-content: center; }
     .social-icons { justify-content: center; }
-    
     .gallery-track img { width: 100px; height: 140px; }
     
-    /* CORRECCIÓN FINAL PARA EL BOTÓN EN MÓVIL */
     .btn-large {
         font-size: 1rem; 
         padding: 12px 20px; 
-        width: 100%; /* Que ocupe todo el ancho */
-        max-width: 300px; /* Pero no exagerado */
-        display: block; /* Asegura que sea bloque */
-        margin: 0 auto; /* Centrado */
-        white-space: normal; /* Permite que el texto baje si es necesario */
+        width: 90%; 
+        max-width: 300px;
+        display: block; 
+        margin: 0 auto; 
     }
 }
