@@ -24,15 +24,13 @@ body {
 img { max-width: 100%; height: auto; }
 
 /* =========================================
-   2. HEADER & NAVEGACIÓN (CORREGIDO Z-INDEX)
+   2. HEADER & NAVEGACIÓN
    ========================================= */
 .main-header {
     background-color: var(--white);
     box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    position: sticky; 
-    top: 0; 
-    /* Z-INDEX ALTO: Para estar encima del overlay oscuro */
-    z-index: 2000; 
+    position: sticky; top: 0; 
+    z-index: 1000; /* Header normal */
     padding: 0.5rem 0;
 }
 
@@ -62,7 +60,9 @@ img { max-width: 100%; height: auto; }
 .dropdown-content a { color: var(--text-grey); padding: 12px 20px; display: block; font-size: 14px; }
 .dropdown-content a:hover { background-color: #f0f8ff; color: var(--primary-blue); }
 
+/* BOTÓN DE CONTACTO (CORREGIDO PARA QUE NO SE CORTE) */
 .btn-contact {
+    display: inline-block; /* Corrección clave */
     background-color: var(--primary-blue); color: var(--white) !important;
     padding: 10px 25px; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; text-decoration: none;
 }
@@ -77,18 +77,17 @@ img { max-width: 100%; height: auto; }
     cursor: pointer; align-self: flex-end; margin-bottom: 20px;
 }
 
-/* OVERLAY OSCURO (CORREGIDO Z-INDEX) */
+/* OVERLAY OSCURO (CORREGIDO) */
 .menu-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); 
-    /* Z-INDEX MENOR QUE EL HEADER (2000) PERO MAYOR QUE EL RESTO */
-    z-index: 1500; 
+    background: rgba(0,0,0,0.6); /* Un poco más oscuro */
+    z-index: 2000; /* Encima del header (1000) pero debajo del menú móvil (3000) */
     display: none; opacity: 0; transition: opacity 0.3s ease;
 }
 .menu-overlay.active { display: block; opacity: 1; }
 
 /* =========================================
-   3. HERO SECTIONS
+   3. HERO SECTIONS & FONDOS
    ========================================= */
 .hero {
     height: 60vh;
@@ -165,7 +164,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .disclaimer { text-align: center; font-size: 0.7rem; color: #ccc; padding: 10px; background-color: var(--white); }
 
 /* =========================================
-   5. GALERÍA LADRILLO INFINITA
+   5. GALERÍA LADRILLO (VERTICAL PEQUEÑA)
    ========================================= */
 .travelers-gallery-section { 
     background-color: #f8f9fa; 
@@ -178,9 +177,8 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .gallery-row { display: flex; width: 100%; overflow: hidden; position: relative; }
 .gallery-track { display: flex; gap: 12px; width: max-content; }
 
-/* FOTOS MÁS PEQUEÑAS (VERTICALES) */
 .gallery-track img { 
-    width: 130px; 
+    width: 130px;  /* ANCHO FIJO PARA SINCRONIZAR VELOCIDAD */
     height: 180px; 
     border-radius: 10px; 
     object-fit: cover; 
@@ -209,7 +207,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); }
 
 /* =========================================
-   7. MÓVIL
+   7. MEDIA QUERIES (MÓVIL) - CORRECCIÓN MENÚ
    ========================================= */
 @media screen and (max-width: 768px) {
     .header-content { display: flex; justify-content: space-between; align-items: center; }
@@ -218,16 +216,28 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .desktop-only-btn { display: none; }
     .mobile-only-btn { display: inline-block; margin-top: 20px; width: 100%; text-align: center; }
 
+    /* MENÚ LATERAL: Z-INDEX 3000 PARA GANARLE AL OVERLAY */
     .nav-links {
-        position: fixed; top: 0; left: 0; height: 100vh; width: 80%; max-width: 300px;
-        background-color: var(--white); flex-direction: column; align-items: flex-start;
-        padding: 20px 25px; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 2000; box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        position: fixed; 
+        top: 0; left: 0; 
+        height: 100vh; 
+        width: 80%; 
+        max-width: 300px;
+        background-color: var(--white); 
+        flex-direction: column; 
+        align-items: flex-start;
+        padding: 20px 25px; 
+        transform: translateX(-100%); 
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 3000; /* ¡MUY ALTO! ESTO LO ARREGLA */
+        box-shadow: 4px 0 15px rgba(0,0,0,0.1);
     }
     .nav-links.active { transform: translateX(0%); }
     .nav-links li { width: 100%; text-align: left; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
-    .close-menu-btn { display: block; align-self: flex-end; font-size: 1.5rem; padding: 10px; }
+    
+    .close-menu-btn { display: block; align-self: flex-end; font-size: 1.5rem; padding: 10px; cursor: pointer; }
 
+    /* Corrección Dropdown en móvil */
     .dropdown-content { position: static; box-shadow: none; border-top: none; background-color: #f9f9f9; padding-left: 15px; display: none; width: 100%; }
     .dropdown.active .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -236,9 +246,11 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     .hero-buttons { display: flex; flex-direction: column; width: 100%; }
     .btn-primary, .btn-secondary { width: 100%; margin: 5px 0; }
     .iframe-full-width { height: 1800px; }
+    
     .footer-content { flex-direction: column; text-align: center; }
     .footer-links a { justify-content: center; }
     .social-icons { justify-content: center; }
     
+    /* Galería más chica en móvil */
     .gallery-track img { width: 100px; height: 140px; }
 }
